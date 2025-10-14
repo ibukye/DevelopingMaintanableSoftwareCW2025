@@ -11,6 +11,51 @@
 
 ---
 
+## Directory Structure
+**MVC Design Pattern (Model-View-Controller)**
+- **Model** : Data & Logic
+- **View** : GUI
+- **Controller** : Update Model & View (in between)
+
+`````
+com.comp2042
+|-- view/
+|   |-- GuiContoroller
+|   |-- Main
+|   |-- GameOverPanel
+|   |-- NotificationPanel
+|-- model/
+|   |-- Board
+|   |-- BrickRotator
+|   |-- ClearRow
+|   |-- DownData
+|   |-- MatrixOperations
+|   |-- NextShapeInfo
+|   |-- Score
+|   |-- SimpleBoard
+|   |-- ViewData
+|   |--bricks/
+|       |-- Brick
+|       |-- BrickGenerator
+|       |-- IBrick
+|       |-- JBrick
+|       |-- LBrick
+|       |-- OBrick
+|       |-- RandomBrickGenerator
+|       |-- SBrick
+|       |-- TBrick
+|       |-- ZBrick
+|
+|-- controller/ 
+|   |-- EventSource
+|   |-- EventType
+|   |-- GameController
+|   |-- InputEventListener
+|   |-- MoveEvent
+`````
+
+---
+
 ## TODO (Modification)
 - [ ] Game Over logic (not high enough)
 
