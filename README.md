@@ -58,7 +58,7 @@ com.comp2042
 
 ## TODO (Modification)
 - [ ] Game Over logic (not high enough)
-
+- [ ] Display Score 
 ---
 
 ## TODO (Should Implement)
