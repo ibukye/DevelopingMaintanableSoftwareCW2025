@@ -69,4 +69,17 @@ com.comp2042
 - [ ] **Pause/Resume function**
 - [ ] **Sound Effect/BGM**
 - [ ] **Custom Skin/Theme**
-- [ ] **Drop Position Forecast (Ghost Piece)**  
+- [ ] **Drop Position Forecast (Ghost Piece)**
+
+
+---
+
+## TimeLine
+
+- [x] Directory Refactoring
+- [ ] Code Refactoring
+- [ ] Code Modification
+- [ ] Code Extension
+
+
+---
