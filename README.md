@@ -76,7 +76,7 @@ com.comp2042
 
 ## TimeLine
 
-- [ ] Directory Refactoring
+- [x] Directory Refactoring
 - [ ] Code Refactoring
 - [ ] Code Modification
 - [ ] Code Extension
