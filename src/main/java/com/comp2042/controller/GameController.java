@@ -1,5 +1,6 @@
 package com.comp2042.controller;
 
+import com.comp2042.GameConfig;
 import com.comp2042.model.*;
 import com.comp2042.view.GuiController;
 import javafx.animation.KeyFrame;
@@ -9,7 +10,7 @@ import javafx.util.Duration;
 // Implemented from an abstract class (InputEventListener)
 public class GameController implements InputEventListener {
 
-    private Board board = new SimpleBoard(25, 10);
+    private Board board = new SimpleBoard(GameConfig.BOARD_HEIGHT, GameConfig.BOARD_WIDTH);
     private final GuiController viewGuiController;
     private Timeline timeLine;
 
@@ -23,7 +24,7 @@ public class GameController implements InputEventListener {
         // Moved from GuiController
         // Manages the game progress
         timeLine = new Timeline(new KeyFrame(
-                Duration.millis(400),
+                Duration.millis(GameConfig.GAME_SPEED_MS),
                 //ae -> moveDown(new MoveEvent(EventType.DOWN, EventSource.THREAD))
                 ae -> { // onDownEvent (cannot call moveDown since its private)
                     DownData downData = onDownEvent(new MoveEvent(EventType.DOWN, EventSource.THREAD));
