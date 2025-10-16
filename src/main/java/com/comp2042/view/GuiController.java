@@ -59,7 +59,7 @@ public class GuiController implements Initializable {
         Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
         gamePanel.setFocusTraversable(true);
         gamePanel.requestFocus();
-        gamePanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        /*gamePanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (isPause.getValue() == Boolean.FALSE && isGameOver.getValue() == Boolean.FALSE) {
@@ -84,7 +84,10 @@ public class GuiController implements Initializable {
                     newGame(null);
                 }
             }
-        });
+        });*/
+        InputHandler inputHandler = new InputHandler(eventListener, this);  // pass the role to InputHandler
+        gamePanel.setOnKeyPressed(inputHandler);
+
         gameOverPanel.setVisible(false);
 
         final Reflection reflection = new Reflection();
@@ -171,7 +174,7 @@ public class GuiController implements Initializable {
     }
 
 
-    private void refreshBrick(ViewData brick) {
+    public void refreshBrick(ViewData brick) {
         if (isPause.getValue() == Boolean.FALSE) {
             brickPanel.setLayoutX(gamePanel.getLayoutX() + brick.getxPosition() * brickPanel.getVgap() + brick.getxPosition() * BRICK_SIZE);
             brickPanel.setLayoutY(-42 + gamePanel.getLayoutY() + brick.getyPosition() * brickPanel.getHgap() + brick.getyPosition() * BRICK_SIZE);
@@ -242,4 +245,7 @@ public class GuiController implements Initializable {
     public void pauseGame(ActionEvent actionEvent) {
         gamePanel.requestFocus();
     }
+
+    public boolean isGamePaused() { return isPause.get(); }
+    public boolean isGameOver() { return isGameOver.get(); }
 }
