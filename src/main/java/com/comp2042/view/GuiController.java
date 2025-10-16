@@ -85,8 +85,8 @@ public class GuiController implements Initializable {
                 }
             }
         });*/
-        InputHandler inputHandler = new InputHandler(eventListener, this);  // pass the role to InputHandler
-        gamePanel.setOnKeyPressed(inputHandler);
+        /*InputHandler inputHandler = new InputHandler(eventListener, this);  // pass the role to InputHandler
+        gamePanel.setOnKeyPressed(inputHandler);*/
 
         gameOverPanel.setVisible(false);
 
@@ -218,6 +218,10 @@ public class GuiController implements Initializable {
 
     public void setEventListener(InputEventListener eventListener) {
         this.eventListener = eventListener;
+        // Fix: "this.gameController" is null in GameController.java
+        // Create an instance of InputHandler for sure
+        InputHandler inputHandler = new InputHandler(this.eventListener, this);
+        gamePanel.setOnKeyPressed(inputHandler);
     }
 
     public void bindScore(IntegerProperty integerProperty) {
