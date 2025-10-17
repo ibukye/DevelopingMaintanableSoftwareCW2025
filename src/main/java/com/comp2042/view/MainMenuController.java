@@ -1,5 +1,6 @@
 package com.comp2042.view;
 
+import com.comp2042.model.Difficulty;
 import javafx.fxml.FXML;
 //import java.awt.event.ActionEvent;
 import javafx.event.ActionEvent;
@@ -19,31 +20,32 @@ public class MainMenuController {
     // Easy mode
     @FXML
     void onEasyClicked(ActionEvent e) {
-        // create Main class
-        System.out.println("Easy button was clicked!");
+        // create Main class with easy mode
+        mainApp.showGameScreen(Difficulty.EASY);
     }
 
     // Normal mode
     @FXML
     void onNormalClicked(ActionEvent e) {
-        //
+        // create Main class with normal mode
+        mainApp.showGameScreen(Difficulty.NORMAL);
     }
 
     // Hard mode
     @FXML
     void onHardClicked(ActionEvent e) {
-        //
+        // create Main class with hard mode
+        mainApp.showGameScreen(Difficulty.HARD);
     }
 
     // Setting Button
     @FXML
     void onSettingClicked(ActionEvent e) {
-        //
+        // not implemented yet
+        System.out.println("Setting button is clicked");
     }
 
     // Exit Button
     @FXML
-    void onExitClicked(ActionEvent e) {
-        System.exit(0);
-    }
+    void onExitClicked(ActionEvent e) { System.exit(0); }
 }

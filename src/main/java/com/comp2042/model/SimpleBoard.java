@@ -19,7 +19,6 @@ public class SimpleBoard implements Board {
     // Level System
     private int level = 1;
     private int totalRowCleared = 0;
-    private static final int ROWS_PER_LEVEL = 10;
 
     public SimpleBoard(int width, int height) {
         this.width = width;
@@ -116,9 +115,10 @@ public class SimpleBoard implements Board {
         boolean isLeveledUp = false;
         if (numCleared > 0) {
             totalRowCleared += numCleared;
-            int newLevel = 1 + totalRowCleared/ROWS_PER_LEVEL;
+            int newLevel = 1 + totalRowCleared/GameConfig.ROWS_PER_LEVEL;
             if (newLevel > this.level) {
                 isLeveledUp = true;
+                this.level = newLevel;
             }
         }
 

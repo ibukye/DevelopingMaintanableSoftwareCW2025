@@ -47,14 +47,22 @@ public class GameController implements InputEventListener {
         int speed = GameConfig.getSpeed(this.difficulty, board.getLevel());
         timeLine = new Timeline(new KeyFrame(
                 Duration.millis(speed),
-                ae -> {
-                    DownData downData = onDownEvent(new MoveEvent(EventType.DOWN, EventSource.THREAD));
-                    // Need to reflect the change to the gui
-                    viewGuiController.updateScreen(downData);
-                }
+                ae -> gameTick()
         ));
         timeLine.setCycleCount(Timeline.INDEFINITE);
         timeLine.play();
+    }
+
+    // Every 1 frame
+    private void gameTick() {
+        // if gameOver then stop
+        if (viewGuiController.isGameOver()) { timeLine.stop(); return; }
+        DownData downData = onDownEvent(new MoveEvent(EventType.DOWN, EventSource.THREAD));
+        viewGuiController.updateScreen(downData);
+        // if level up occur
+        if (downData.getClearRow() != null && downData.getClearRow().getIsLeveledUp()) {
+            gameLoop(); // start game loop with new speed
+        }
     }
 
     @Override
