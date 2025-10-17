@@ -20,6 +20,8 @@ public interface Board {
 
     ClearRow clearRows();
 
+    int getLevel();
+
     Score getScore();
 
     void newGame();

@@ -71,6 +71,10 @@ com.comp2042
 - [ ] **Custom Skin/Theme**
 - [ ] **Drop Position Forecast (Ghost Piece)**
 
+Difficulties
+- Easy : No modification
+- Normal : Speed will be increased as the player clears a row
+- Hard : Normal + Some bricks are placed before it starts
 
 ---
 

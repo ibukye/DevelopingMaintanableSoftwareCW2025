@@ -16,6 +16,10 @@ public class SimpleBoard implements Board {
     private int[][] currentGameMatrix;
     private Point currentOffset;
     private final Score score;
+    // Level System
+    private int level = 1;
+    private int totalRowCleared = 0;
+    private static final int ROWS_PER_LEVEL = 10;
 
     public SimpleBoard(int width, int height) {
         this.width = width;
@@ -106,12 +110,25 @@ public class SimpleBoard implements Board {
     }
 
     @Override
-    public ClearRow clearRows() {
+    public ClearRow clearRows() {   // need to check (doesnt mean rows are cleared every time this function called)
         ClearRow clearRow = MatrixOperations.checkRemoving(currentGameMatrix);
-        currentGameMatrix = clearRow.getNewMatrix();
-        return clearRow;
+        int numCleared = clearRow.getLinesRemoved();
+        boolean isLeveledUp = false;
+        if (numCleared > 0) {
+            totalRowCleared += numCleared;
+            int newLevel = 1 + totalRowCleared/ROWS_PER_LEVEL;
+            if (newLevel > this.level) {
+                isLeveledUp = true;
+            }
+        }
 
+        currentGameMatrix = clearRow.getNewMatrix();
+        // Return a new ClearRow object with the correct data and the flag
+        return new ClearRow(numCleared, currentGameMatrix, clearRow.getScoreBonus(), isLeveledUp);
     }
+
+    @Override
+    public int getLevel() { return this.level; }
 
     @Override
     public Score getScore() {
