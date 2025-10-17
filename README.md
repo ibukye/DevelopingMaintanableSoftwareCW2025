@@ -58,7 +58,7 @@ com.comp2042
 
 ## TODO (Modification)
 - [x] Game Over logic (not high enough)
-- [ ] Display Score 
+- [x] Display Score
 ---
 
 ## TODO (Should Implement)
@@ -87,3 +87,7 @@ Difficulties
 
 
 ---
+
+### Speed Bonus
+When players actively press the down key to accelerate the bricks' descent, they earn extra points
+This implements high risk, high return 
