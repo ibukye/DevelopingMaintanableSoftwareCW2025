@@ -63,8 +63,8 @@ com.comp2042
 
 ## TODO (Should Implement)
 - [ ] **Setting Screen (adjust volume, change key-binds)**
-- [ ] **Game Mode: Multi-Level (speed, difficulty)**
-- [ ] **Next Block Forecast**
+- [x] **Game Mode: Multi-Level (speed, difficulty)**
+- [x] **Next Block Forecast**
 - [ ] **High Score**
 - [ ] **Pause/Resume function**
 - [ ] **Sound Effect/BGM**
