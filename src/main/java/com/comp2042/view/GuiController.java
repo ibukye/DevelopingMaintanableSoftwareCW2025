@@ -5,6 +5,7 @@ import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -13,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.effect.Reflection;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -42,13 +44,16 @@ public class GuiController implements Initializable {
     @FXML
     private GameOverPanel gameOverPanel;
 
+    @FXML
+    private Label scoreLabel;
+
+    private int score;
+
     private Rectangle[][] displayMatrix;
 
     private InputEventListener eventListener;
 
     private Rectangle[][] rectangles;
-
-    //private Timeline timeLine;
 
     private final BooleanProperty isPause = new SimpleBooleanProperty();
 
@@ -131,7 +136,11 @@ public class GuiController implements Initializable {
     // For down event
     public void updateScreen(DownData downData) {
         if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
-            NotificationPanel notificationPanel = new NotificationPanel("+" + downData.getClearRow().getScoreBonus());
+            int obtainedScore = downData.getClearRow().getScoreBonus();
+            NotificationPanel notificationPanel = new NotificationPanel("+" + obtainedScore);
+            score += obtainedScore;
+            //score.set(score.get() + obtainedScore);
+            //scoreLabel.setText("Score: " + score);  // Display score to the label
             groupNotification.getChildren().add(notificationPanel);
             notificationPanel.showScore(groupNotification.getChildren());
         }
@@ -228,6 +237,7 @@ public class GuiController implements Initializable {
     }
 
     public void bindScore(IntegerProperty integerProperty) {
+        scoreLabel.textProperty().bind(integerProperty.asString());
     }
 
     // call a function to stop the execution

@@ -70,3 +70,9 @@
     -fx-fill: yellow;
     -fx-text-fill: yellow;
 }
+
+.score-label {
+-fx-text-fill: white; /* 文字の色を白に設定 */
+    -fx-font-family: "Let's go Digital"; /* フォントを指定（もしあれば） */
+    -fx-font-size: 15px;    /* 文字の大きさを設定 */
+}
