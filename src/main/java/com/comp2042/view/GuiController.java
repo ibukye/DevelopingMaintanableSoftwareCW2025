@@ -47,6 +47,8 @@ public class GuiController implements Initializable {
     @FXML
     private Label scoreLabel;
 
+    private int score;
+
     private Rectangle[][] displayMatrix;
 
     private InputEventListener eventListener;
