@@ -25,6 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -47,6 +48,9 @@ public class GuiController implements Initializable {
     @FXML
     private Label scoreLabel;
 
+    @FXML
+    private GridPane nextBrickPanel;
+
     private int score;
 
     private Rectangle[][] displayMatrix;
@@ -54,6 +58,8 @@ public class GuiController implements Initializable {
     private InputEventListener eventListener;
 
     private Rectangle[][] rectangles;
+
+    private Rectangle[][] nextBrickRectangles;
 
     private final BooleanProperty isPause = new SimpleBooleanProperty();
 
@@ -112,6 +118,19 @@ public class GuiController implements Initializable {
             }
         }
 
+        // nextBrick panel initializetion (4x4)
+        nextBrickRectangles = new Rectangle[4][4];
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Rectangle rectangle = new Rectangle(12, 12);
+                nextBrickRectangles[i][j] = rectangle;
+                // Place to the panel (component, x, y)
+                nextBrickPanel.add(rectangle, j, i);
+            }
+        }
+
+
+
         rectangles = new Rectangle[brick.getBrickData().length][brick.getBrickData()[0].length];
         for (int i = 0; i < brick.getBrickData().length; i++) {
             for (int j = 0; j < brick.getBrickData()[i].length; j++) {
@@ -133,6 +152,20 @@ public class GuiController implements Initializable {
         timeLine.play();*/
     }
 
+    private void displayNextBrick(int[][] nextBrick)  {
+        // Need to initialize the panel to not overwrite
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                nextBrickRectangles[i][j].setFill(Color.TRANSPARENT);
+            }
+        }
+        for (int i = 0; i < nextBrick.length; i++) {
+            for (int j = 0; j < nextBrick[i].length; j++) {
+                if (nextBrick[i][j] != 0) setRectangleData(nextBrick[i][j], nextBrickRectangles[i][j]);
+            }
+        }
+    }
+
     // For down event
     public void updateScreen(DownData downData) {
         if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
@@ -144,45 +177,26 @@ public class GuiController implements Initializable {
             groupNotification.getChildren().add(notificationPanel);
             notificationPanel.showScore(groupNotification.getChildren());
         }
+        ViewData viewData = downData.getViewData();
+        displayNextBrick(viewData.getNextBrickData());
         refreshBrick(downData.getViewData());
         gamePanel.requestFocus();
     }
 
+
     private Paint getFillColor(int i) {
-        Paint returnPaint;
-        switch (i) {
-            case 0:
-                returnPaint = Color.TRANSPARENT;
-                break;
-            case 1:
-                returnPaint = Color.AQUA;
-                break;
-            case 2:
-                returnPaint = Color.BLUEVIOLET;
-                break;
-            case 3:
-                returnPaint = Color.DARKGREEN;
-                break;
-            case 4:
-                returnPaint = Color.YELLOW;
-                break;
-            case 5:
-                returnPaint = Color.RED;
-                break;
-            case 6:
-                returnPaint = Color.BEIGE;
-                break;
-            case 7:
-                returnPaint = Color.BURLYWOOD;
-                break;
-            case 8:
-                returnPaint = Color.GRAY;
-                break;
-            default:
-                returnPaint = Color.WHITE;
-                break;
-        }
-        return returnPaint;
+        return switch (i) {
+            case 0 -> Color.TRANSPARENT;
+            case 1 -> Color.AQUA;
+            case 2 -> Color.BLUEVIOLET;
+            case 3 -> Color.DARKGREEN;
+            case 4 -> Color.YELLOW;
+            case 5 -> Color.RED;
+            case 6 -> Color.BEIGE;
+            case 7 -> Color.BURLYWOOD;
+            case 8 -> Color.GRAY;
+            default -> Color.WHITE;
+        };
     }
 
 

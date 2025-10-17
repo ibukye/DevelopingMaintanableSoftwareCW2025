@@ -72,7 +72,13 @@
 }
 
 .score-label {
--fx-text-fill: white; /* 文字の色を白に設定 */
-    -fx-font-family: "Let's go Digital"; /* フォントを指定（もしあれば） */
-    -fx-font-size: 15px;    /* 文字の大きさを設定 */
+    -fx-text-fill: white;
+    -fx-font-family: "Let's go Digital";
+    -fx-font-size: 15px;
+}
+
+.next-brick {
+    -fx-text-fill: white;
+    -fx-font-family: "Let's go Digital";
+    -fx-font-size: 15px;
 }
