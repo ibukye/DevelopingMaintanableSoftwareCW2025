@@ -24,5 +24,7 @@ public interface Board {
 
     Score getScore();
 
+    void initializeWithObstacles();
+
     void newGame();
 }

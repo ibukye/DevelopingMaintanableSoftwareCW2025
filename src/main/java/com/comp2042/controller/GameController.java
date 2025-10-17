@@ -15,15 +15,24 @@ public class GameController implements InputEventListener {
     private final GuiController viewGuiController;
     private final Difficulty difficulty;
     private Timeline timeLine;
+    private boolean isGameOver = false;
 
     public GameController(GuiController c, Difficulty difficulty) {
-        viewGuiController = c;
-        board.createNewBrick();
-        viewGuiController.setEventListener(this);
-        viewGuiController.initGameView(board.getBoardMatrix(), board.getViewData());
-        viewGuiController.bindScore(board.getScore().scoreProperty());
-
         this.difficulty = difficulty;
+        this.board = new SimpleBoard(GameConfig.BOARD_HEIGHT, GameConfig.BOARD_WIDTH);
+        viewGuiController = c;
+        viewGuiController.setEventListener(this);
+
+
+        board.createNewBrick();
+        // if the difficulty is hard -> initialize the game screen with some obstacles
+        if (this.difficulty == Difficulty.HARD) { board.initializeWithObstacles(); }
+        // preparation of game screen
+        viewGuiController.initGameView(board.getBoardMatrix(), board.getViewData());
+        // need to render here
+        viewGuiController.refreshGameBackground(board.getBoardMatrix());
+
+        viewGuiController.bindScore(board.getScore().scoreProperty());
 
         gameLoop();
 

@@ -135,6 +135,26 @@ public class SimpleBoard implements Board {
         return score;
     }
 
+    @Override
+    public void initializeWithObstacles() {
+        // 5 column will be embbed by some bricks
+        /*for (int y = height-1; y>=height-5; y--) {  // the floor to height of 5
+            for (int x = 0; x < width; x++) {
+                // random with 60%
+                if (Math.random() < 0.6) {
+                    // fill with 8th bricks
+                    currentGameMatrix[x][y] = 8;
+                }
+            }
+        }*/
+        for (int x = height-1; x >= height-5; x--) {
+            for (int y = 0; y < width; y++) {
+                if (Math.random() < 0.6) {
+                    currentGameMatrix[x][y] = 8;
+                }
+            }
+        }
+    }
 
     @Override
     public void newGame() {
