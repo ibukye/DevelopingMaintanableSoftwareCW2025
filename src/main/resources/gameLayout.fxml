@@ -22,17 +22,22 @@
         </VBox>
     </Group>
 
+    <Button fx:id="pauseButton" text="Pause" layoutX="280" layoutY="10" onAction="#pause"/>
+    <Button fx:id="resumeButton" text="Resume" layoutX="280" layoutY="10" onAction="#resume"/>
+
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
             <GameOverPanel fx:id="gameOverPanel"/>
         </VBox>
     </Group>
+
     <Group layoutX="250" layoutY="400">
         <VBox>
             <Label text="Score" styleClass="score-label"/>
             <Label fx:id="scoreLabel" text="0" styleClass="score-label"/>
         </VBox>
     </Group>
+
     <stylesheets>
         <URL value="@window_style.css"/>
     </stylesheets>
