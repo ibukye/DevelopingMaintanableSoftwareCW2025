@@ -129,6 +129,10 @@ public class GameController implements InputEventListener {
     @Override
     public void createNewGame() {
         board.newGame();
+        if (this.difficulty == Difficulty.HARD) {
+            board.initializeWithObstacles();
+        }
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
+        gameLoop();
     }
 }

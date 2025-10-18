@@ -14,8 +14,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Reflection;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -51,6 +54,11 @@ public class GuiController implements Initializable {
     @FXML
     private GridPane nextBrickPanel;
 
+    @FXML
+    private Button pauseButton;
+    @FXML
+    private Button resumeButton;
+
     private Rectangle[][] displayMatrix;
 
     private InputEventListener eventListener;
@@ -59,6 +67,9 @@ public class GuiController implements Initializable {
 
     private Rectangle[][] nextBrickRectangles;
 
+    private Image pauseImg;
+    private Image resumeImg;
+
     private final BooleanProperty isPause = new SimpleBooleanProperty();
 
     private final BooleanProperty isGameOver = new SimpleBooleanProperty();
@@ -66,6 +77,24 @@ public class GuiController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Font.loadFont(getClass().getClassLoader().getResource("digital.ttf").toExternalForm(), 38);
+
+        // load icons
+        try {
+            pauseImg = new Image(getClass().getResourceAsStream("/icons/pauseButton.png"));
+            resumeImg = new Image(getClass().getResourceAsStream("/icons/resumeButton.png"));
+            ImageView pauseIcon = new ImageView(pauseImg);
+            ImageView resumeIcon = new ImageView(resumeImg);
+            pauseIcon.setFitWidth(16);
+            resumeIcon.setFitWidth(16);
+            pauseIcon.setPreserveRatio(true);
+            resumeIcon.setPreserveRatio(true);
+            pauseButton.setGraphic(pauseIcon);
+            resumeButton.setGraphic(resumeIcon);
+        } catch (Exception e) {
+            System.err.println("Failed to load icon img: " + e.getMessage());
+        }
+
+
         gamePanel.setFocusTraversable(true);
         gamePanel.requestFocus();
         /*gamePanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -253,6 +282,9 @@ public class GuiController implements Initializable {
     public void gameOver() {
         //timeLine.stop();
         //GameController.stopGame();
+        pauseGame(null);
+        pauseButton.setVisible(false);
+        resumeButton.setVisible(false);
         eventListener.stopGame();   // call from interface (Separation of Concerns)
         gameOverPanel.setVisible(true);
         isGameOver.setValue(Boolean.TRUE);
@@ -263,12 +295,25 @@ public class GuiController implements Initializable {
         gameOverPanel.setVisible(false);
         eventListener.createNewGame();
         gamePanel.requestFocus();
-        eventListener.resumeGame(); // changed from timeLine.play()
+        //eventListener.resumeGame(); // changed from timeLine.play()
         isPause.setValue(Boolean.FALSE);
         isGameOver.setValue(Boolean.FALSE);
+        pauseButton.setVisible(true);
     }
 
     public void pauseGame(ActionEvent actionEvent) {
+        eventListener.stopGame();
+        isPause.set(true);
+        pauseButton.setVisible(false);
+        resumeButton.setVisible(true);
+        gamePanel.requestFocus();
+    }
+
+    public void resumeGame(ActionEvent actionEvent) {
+        eventListener.resumeGame();
+        isPause.set(false);
+        resumeButton.setVisible(false);
+        pauseButton.setVisible(true);
         gamePanel.requestFocus();
     }
 

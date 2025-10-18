@@ -25,10 +25,11 @@ public class InputHandler implements EventHandler<KeyEvent> {
         // Paused or GameOver?
         if (guiController.isGamePaused() || guiController.isGameOver()) {
             if (keyEvent.getCode() == KeyCode.N) { guiController.newGame(null); }   // New game if N pressed
-            return;
+            if (keyEvent.getCode() != KeyCode.SPACE && keyEvent.getCode() != KeyCode.N) {
+                return;
+            }
         }
 
-        //
         ViewData viewData = null;   // store updated (screen) data
         switch (keyEvent.getCode()) {   // GameController
             case LEFT:
@@ -44,6 +45,10 @@ public class InputHandler implements EventHandler<KeyEvent> {
                 DownData downData = gameController.onDownEvent(new MoveEvent(EventType.DOWN, EventSource.USER));
                 // moveDown(new MoveEvent(EventType.DOWN, EventSource.USER));
                 guiController.updateScreen(downData);
+                break;
+            case SPACE:
+                if (guiController.isGamePaused()) { guiController.resumeGame(null); }
+                else { guiController.pauseGame(null); }
                 break;
         }
 

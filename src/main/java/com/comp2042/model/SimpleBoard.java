@@ -153,6 +153,8 @@ public class SimpleBoard implements Board {
         currentGameMatrix = new int[width][height];
         //currentGameMatrix = new int[height][width];
         score.reset();
+        this.level = 1;
+        this.totalRowCleared = 0;
         createNewBrick();
     }
 }
