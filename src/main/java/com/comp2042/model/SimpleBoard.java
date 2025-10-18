@@ -4,6 +4,7 @@ import com.comp2042.GameConfig;
 import com.comp2042.model.bricks.Brick;
 import com.comp2042.model.bricks.BrickGenerator;
 import com.comp2042.model.bricks.RandomBrickGenerator;
+import javafx.fxml.FXML;
 
 import java.awt.*;
 

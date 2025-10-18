@@ -59,7 +59,7 @@ public class Main extends Application {
             controller.setMainApp(this);
 
             //primaryStage.setScene(new Scene(root, 300, 510));
-            primaryStage.setScene(new Scene(root, 400, 510));
+            primaryStage.setScene(new Scene(root, 420, 510));
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load MainMenu.fxml");
@@ -77,7 +77,7 @@ public class Main extends Application {
             new GameController(c, difficulty);
 
             //primaryStage.setScene(new Scene(root, 300, 510));
-            primaryStage.setScene(new Scene(root, 400, 510));
+            primaryStage.setScene(new Scene(root, 420, 510));
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load gameLayout.fxml");

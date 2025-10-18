@@ -4,6 +4,7 @@ import com.comp2042.controller.*;
 import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -38,22 +39,16 @@ public class GuiController implements Initializable {
 
     @FXML
     private GridPane gamePanel;
-
     @FXML
     private Group groupNotification;
-
     @FXML
     private GridPane brickPanel;
-
     @FXML
     private GameOverPanel gameOverPanel;
-
     @FXML
     private Label scoreLabel;
-
     @FXML
     private GridPane nextBrickPanel;
-
     @FXML
     private Button pauseButton;
     @FXML
@@ -201,6 +196,14 @@ public class GuiController implements Initializable {
             groupNotification.getChildren().add(notificationPanel);
             notificationPanel.showScore(groupNotification.getChildren());
         }
+
+        // Level Up
+        if (downData.getClearRow() != null && downData.getClearRow().getIsLeveledUp()) {
+            NotificationPanel speedUpPanel = new NotificationPanel("Speed UP!");
+            groupNotification.getChildren().add(speedUpPanel);
+            speedUpPanel.showScore(groupNotification.getChildren());
+        }
+
         ViewData viewData = downData.getViewData();
         displayNextBrick(viewData.getNextBrickData());
         refreshBrick(downData.getViewData());

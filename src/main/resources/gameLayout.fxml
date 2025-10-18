@@ -15,17 +15,23 @@
         </center>
     </BorderPane>
 
-    <Group layoutX="250" layoutY="50">
+    <Group layoutX="250" layoutY="20" styleClass="next-brick-container">
         <VBox>
-            <Label text="Next" styleClass="next-brick"/>
+            <Label text="Next" styleClass="next-brick-label"/>
             <GridPane fx:id="nextBrickPanel" hgap="1" vgap="1" />
         </VBox>
     </Group>
 
-    <Button fx:id="pauseButton" layoutX="250" layoutY="450" onAction="#pauseGame"/>
-    <Button fx:id="resumeButton" layoutX="250" layoutY="450" onAction="#resumeGame" visible="false"/>
+    <Group layoutX="250" layoutY="100">
+        <VBox spacing="5">
+            <Label text="Score" styleClass="score-label"/>
+            <Label fx:id="scoreLabel" text="0" styleClass="score-value"/>
+            <Label text="High Score" styleClass="score-label"/>
+            <Label fx:id="highScoreLabel" text="0" styleClass="score-value"/>
+        </VBox>
+    </Group>
 
-    <Group layoutX="240" layoutY="150">
+    <Group layoutX="240" layoutY="210">
         <VBox>
             <Label text="N: Start new game" styleClass="key-setting"/>
             <Label text="↑: Rotate Left" styleClass="key-setting"/>
@@ -33,18 +39,16 @@
         </VBox>
     </Group>
 
+    <Label fx:id="speedUpLabel" text="Speed Up" visible="false" layoutX="14" layoutY="190" styleClass="speed-up"/>
+
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
             <GameOverPanel fx:id="gameOverPanel"/>
         </VBox>
     </Group>
 
-    <Group layoutX="250" layoutY="400">
-        <VBox>
-            <Label text="Score" styleClass="score-label"/>
-            <Label fx:id="scoreLabel" text="0" styleClass="score-label"/>
-        </VBox>
-    </Group>
+    <Button fx:id="pauseButton" layoutX="250" layoutY="450" onAction="#pauseGame"/>
+    <Button fx:id="resumeButton" layoutX="250" layoutY="450" onAction="#resumeGame" visible="false"/>
 
     <stylesheets>
         <URL value="@window_style.css"/>
