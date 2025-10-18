@@ -51,8 +51,6 @@ public class GuiController implements Initializable {
     @FXML
     private GridPane nextBrickPanel;
 
-    private int score;
-
     private Rectangle[][] displayMatrix;
 
     private InputEventListener eventListener;
@@ -171,9 +169,6 @@ public class GuiController implements Initializable {
         if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
             int obtainedScore = downData.getClearRow().getScoreBonus();
             NotificationPanel notificationPanel = new NotificationPanel("+" + obtainedScore);
-            score += obtainedScore;
-            //score.set(score.get() + obtainedScore);
-            //scoreLabel.setText("Score: " + score);  // Display score to the label
             groupNotification.getChildren().add(notificationPanel);
             notificationPanel.showScore(groupNotification.getChildren());
         }
