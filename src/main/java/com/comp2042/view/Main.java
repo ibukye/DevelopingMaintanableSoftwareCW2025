@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +34,13 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         new GameController(c);*/
+
+        // load the pause and resume button assets
+        /*Image pauseIcon = new Image(getClass().getResourceAsStream("icons/pauseButton.png"));
+        Image resumeIcon = new Image(getClass().getResourceAsStream("icons/resumeButton.png"));
+        primaryStage.getIcons().add(pauseIcon);
+        primaryStage.getIcons().add(resumeIcon);
+        */
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TetrisJFX");
 
@@ -50,7 +58,8 @@ public class Main extends Application {
             MainMenuController controller = loader.getController();
             controller.setMainApp(this);
 
-            primaryStage.setScene(new Scene(root, 300, 510));
+            //primaryStage.setScene(new Scene(root, 300, 510));
+            primaryStage.setScene(new Scene(root, 400, 510));
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load MainMenu.fxml");
@@ -67,7 +76,8 @@ public class Main extends Application {
             // create GameController and connect to GuiController
             new GameController(c, difficulty);
 
-            primaryStage.setScene(new Scene(root, 300, 510));
+            //primaryStage.setScene(new Scene(root, 300, 510));
+            primaryStage.setScene(new Scene(root, 400, 510));
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Failed to load gameLayout.fxml");
