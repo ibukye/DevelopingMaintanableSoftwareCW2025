@@ -8,6 +8,9 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import com.comp2042.model.Difficulty;
 
+import java.io.*;
+import java.nio.file.Paths;
+
 // Implemented from an abstract class (InputEventListener)
 public class GameController implements InputEventListener {
 
@@ -16,6 +19,7 @@ public class GameController implements InputEventListener {
     private final Difficulty difficulty;
     private Timeline timeLine;
     private boolean isGameOver = false;
+    private final String highScoreFilePath;
 
     public GameController(GuiController c, Difficulty difficulty) {
         this.difficulty = difficulty;
@@ -32,7 +36,14 @@ public class GameController implements InputEventListener {
         // need to render here
         viewGuiController.refreshGameBackground(board.getBoardMatrix());
 
+        // Set a safe file path in the user's home directory
+        String homeDir = System.getProperty("user.home");
+        this.highScoreFilePath = Paths.get(homeDir, "tetris_highscore.txt").toString();
+
         viewGuiController.bindScore(board.getScore().scoreProperty());
+
+        // Load and display the high score when the game starts
+        viewGuiController.updateHighScore(loadScore());
 
         gameLoop();
 
@@ -71,6 +82,40 @@ public class GameController implements InputEventListener {
         // if level up occur
         if (downData.getClearRow() != null && downData.getClearRow().getIsLeveledUp()) {
             gameLoop(); // start game loop with new speed
+        }
+    }
+
+    @Override
+    public int getCurrentScore() { return board.getScore().scoreProperty().get(); }
+
+    @Override
+    public int loadScore() {
+        File file = new File(highScoreFilePath);
+        // if there is no record
+        if (!file.exists()) { return 0; }
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine();
+            return Integer.parseInt(line);
+        } catch (IOException e) {
+            System.err.println("Failed to load high score: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    @Override
+    public void saveScore(int score) {
+        int prevHighScore = loadScore();
+        if (prevHighScore < score) {
+            try {
+                PrintWriter writer = new PrintWriter(new FileWriter(highScoreFilePath));
+                writer.println(score);
+                writer.close();
+                // update the display as well
+                viewGuiController.updateHighScore(score);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

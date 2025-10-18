@@ -48,6 +48,8 @@ public class GuiController implements Initializable {
     @FXML
     private Label scoreLabel;
     @FXML
+    private Label highScoreLabel;
+    @FXML
     private GridPane nextBrickPanel;
     @FXML
     private Button pauseButton;
@@ -188,6 +190,10 @@ public class GuiController implements Initializable {
         }
     }
 
+    public void updateHighScore(int score) {
+        highScoreLabel.setText(String.valueOf(score));
+    }
+
     // For down event
     public void updateScreen(DownData downData) {
         if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
@@ -290,6 +296,8 @@ public class GuiController implements Initializable {
         resumeButton.setVisible(false);
         eventListener.stopGame();   // call from interface (Separation of Concerns)
         gameOverPanel.setVisible(true);
+        // save the score
+        eventListener.saveScore(eventListener.getCurrentScore());
         isGameOver.setValue(Boolean.TRUE);
     }
 

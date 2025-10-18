@@ -13,6 +13,12 @@ public interface InputEventListener {
 
     ViewData onRotateEvent(MoveEvent event);
 
+    int getCurrentScore();
+
+    int loadScore();
+
+    void saveScore(int score);
+
     void stopGame();
 
     void resumeGame();

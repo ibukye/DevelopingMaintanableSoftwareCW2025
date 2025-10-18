@@ -39,8 +39,6 @@
         </VBox>
     </Group>
 
-    <Label fx:id="speedUpLabel" text="Speed Up" visible="false" layoutX="14" layoutY="190" styleClass="speed-up"/>
-
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
             <GameOverPanel fx:id="gameOverPanel"/>
