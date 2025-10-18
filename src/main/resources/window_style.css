@@ -80,5 +80,11 @@
 .next-brick {
     -fx-text-fill: white;
     -fx-font-family: "Let's go Digital";
+    -fx-font-size: 20px;
+}
+
+.key-setting {
+    -fx-text-fill: white;
+    -fx-font-family: "Let's go Digital";
     -fx-font-size: 15px;
 }

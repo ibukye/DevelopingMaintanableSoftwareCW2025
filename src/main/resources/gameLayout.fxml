@@ -22,8 +22,16 @@
         </VBox>
     </Group>
 
-    <Button fx:id="pauseButton" text="Pause" layoutX="280" layoutY="10" onAction="#pause"/>
-    <Button fx:id="resumeButton" text="Resume" layoutX="280" layoutY="10" onAction="#resume"/>
+    <Button fx:id="pauseButton" layoutX="250" layoutY="450" onAction="#pauseGame"/>
+    <Button fx:id="resumeButton" layoutX="250" layoutY="450" onAction="#resumeGame" visible="false"/>
+
+    <Group layoutX="240" layoutY="150">
+        <VBox>
+            <Label text="N: Start new game" styleClass="key-setting"/>
+            <Label text="↑: Rotate Left" styleClass="key-setting"/>
+            <Label text="Space: Pause/Resume game" styleClass="key-setting"/>
+        </VBox>
+    </Group>
 
     <Group fx:id="groupNotification" layoutX="14" layoutY="203">
         <VBox alignment="CENTER">
