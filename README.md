@@ -19,22 +19,26 @@
 
 `````
 com.comp2042
-|-- view/
-|   |-- GuiContoroller
-|   |-- Main
-|   |-- GameOverPanel
-|   |-- NotificationPanel
+|-- controller/ 
+|   |-- EventSource 
+|   |-- EventType
+|   |-- GameController
+|   |-- InputEventListener
+|   |-- InputHandler
+|   |-- MoveEvent
+|
 |-- model/
 |   |-- Board
 |   |-- BrickRotator
 |   |-- ClearRow
+|   |-- Difficulty
 |   |-- DownData
 |   |-- MatrixOperations
 |   |-- NextShapeInfo
 |   |-- Score
 |   |-- SimpleBoard
 |   |-- ViewData
-|   |--bricks/
+|   |-- bricks/
 |       |-- Brick
 |       |-- BrickGenerator
 |       |-- IBrick
@@ -46,12 +50,14 @@ com.comp2042
 |       |-- TBrick
 |       |-- ZBrick
 |
-|-- controller/ 
-|   |-- EventSource
-|   |-- EventType
-|   |-- GameController
-|   |-- InputEventListener
-|   |-- MoveEvent
+|-- view/
+|   |-- GameOverPanel
+|   |-- GuiContoroller
+|   |-- Main
+|   |-- MainMenuController
+|   |-- NotificationPanel
+|
+|-- GameConfig
 `````
 
 ---
@@ -65,8 +71,8 @@ com.comp2042
 - [ ] **Setting Screen (adjust volume, change key-binds)**
 - [x] **Game Mode: Multi-Level (speed, difficulty)**
 - [x] **Next Block Forecast**
-- [ ] **High Score**
-- [ ] **Pause/Resume function**
+- [x] **High Score**
+- [x] **Pause/Resume function**
 - [ ] **Sound Effect/BGM**
 - [ ] **Custom Skin/Theme**
 - [ ] **Drop Position Forecast (Ghost Piece)**
