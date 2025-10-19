@@ -3,15 +3,10 @@ package com.comp2042.view;
 import com.comp2042.controller.*;
 import com.comp2042.model.DownData;
 import com.comp2042.model.ViewData;
-import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -20,18 +15,17 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 
-import javax.swing.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class GuiController implements Initializable {
 
@@ -57,18 +51,15 @@ public class GuiController implements Initializable {
     private Button resumeButton;
 
     private Rectangle[][] displayMatrix;
-
     private InputEventListener eventListener;
-
     private Rectangle[][] rectangles;
-
     private Rectangle[][] nextBrickRectangles;
-
     private Image pauseImg;
     private Image resumeImg;
+    private MediaPlayer clearRowSoundPlayer;
+    private MediaPlayer speedUpSoundPlayer;
 
     private final BooleanProperty isPause = new SimpleBooleanProperty();
-
     private final BooleanProperty isGameOver = new SimpleBooleanProperty();
 
     @Override
@@ -89,6 +80,17 @@ public class GuiController implements Initializable {
             resumeButton.setGraphic(resumeIcon);
         } catch (Exception e) {
             System.err.println("Failed to load icon img: " + e.getMessage());
+        }
+
+        try {
+            URL clearResource = getClass().getResource("/sound/clearRowSound.mp3");
+            URL speedResource = getClass().getResource("/sound/speedUpSound.mp3");
+            Media clearMedia = new Media(clearResource.toString());
+            Media speedMedia = new Media(speedResource.toString());
+            clearRowSoundPlayer = new MediaPlayer(clearMedia);
+            speedUpSoundPlayer = new MediaPlayer(speedMedia);
+        } catch (Exception e) {
+            System.err.println("Failed to load the sound file" + e.getMessage());
         }
 
 
@@ -197,6 +199,8 @@ public class GuiController implements Initializable {
     // For down event
     public void updateScreen(DownData downData) {
         if (downData.getClearRow() != null && downData.getClearRow().getLinesRemoved() > 0) {
+            clearRowSoundPlayer.stop();
+            clearRowSoundPlayer.play();
             int obtainedScore = downData.getClearRow().getScoreBonus();
             NotificationPanel notificationPanel = new NotificationPanel("+" + obtainedScore);
             groupNotification.getChildren().add(notificationPanel);
@@ -205,6 +209,8 @@ public class GuiController implements Initializable {
 
         // Level Up
         if (downData.getClearRow() != null && downData.getClearRow().getIsLeveledUp()) {
+            speedUpSoundPlayer.stop();
+            speedUpSoundPlayer.play();
             NotificationPanel speedUpPanel = new NotificationPanel("Speed UP!");
             groupNotification.getChildren().add(speedUpPanel);
             speedUpPanel.showScore(groupNotification.getChildren());
