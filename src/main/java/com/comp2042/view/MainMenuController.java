@@ -41,8 +41,7 @@ public class MainMenuController {
     // Setting Button
     @FXML
     void onSettingClicked(ActionEvent e) {
-        // not implemented yet
-        System.out.println("Setting button is clicked");
+        mainApp.showSettingScreen();
     }
 
     // Exit Button

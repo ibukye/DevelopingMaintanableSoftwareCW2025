@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +21,8 @@ public class Main extends Application {
 
     // field for store Stage
     private Stage primaryStage;
+    private MediaPlayer clearRowSoundPlayer;
+    private MediaPlayer speedUpSoundPlayer;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -44,8 +48,27 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("TetrisJFX");
 
+        initializeSounds();
+
         // Main Menu
         showMainMenu();
+    }
+
+    public void showSettingScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("settingScreen.fxml"));
+            Parent root = loader.load();
+            SettingController controller = loader.getController();
+            // pass the both sounds
+            controller.setupVolumeControls(clearRowSoundPlayer, speedUpSoundPlayer);
+
+            controller.setMainApp(this);
+
+            primaryStage.setScene(new Scene(root, 420, 510));
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -73,6 +96,9 @@ public class Main extends Application {
             Parent root = loader.load();
             GuiController c = loader.getController();
 
+            c.setMainApp(this);
+            c.setupVolumeControls(clearRowSoundPlayer, speedUpSoundPlayer);
+
             // create GameController and connect to GuiController
             new GameController(c, difficulty);
 
@@ -85,6 +111,23 @@ public class Main extends Application {
         }
     }
 
+    private void initializeSounds() {
+        try {
+            URL clearResource = getClass().getResource("/sound/clearRowSound.mp3");
+            URL speedResource = getClass().getResource("/sound/speedUpSound.mp3");
+
+            if (clearResource != null) {
+                Media clearMedia = new Media(clearResource.toString());
+                clearRowSoundPlayer = new MediaPlayer(clearMedia);
+            }
+            if (speedResource != null) {
+                Media speedMedia = new Media(speedResource.toString());
+                speedUpSoundPlayer = new MediaPlayer(speedMedia);
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load douns: " + e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
         launch(args);

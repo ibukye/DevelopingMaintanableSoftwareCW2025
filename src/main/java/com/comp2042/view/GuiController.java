@@ -58,6 +58,7 @@ public class GuiController implements Initializable {
     private Image resumeImg;
     private MediaPlayer clearRowSoundPlayer;
     private MediaPlayer speedUpSoundPlayer;
+    private Main mainApp;
 
     private final BooleanProperty isPause = new SimpleBooleanProperty();
     private final BooleanProperty isGameOver = new SimpleBooleanProperty();
@@ -82,16 +83,9 @@ public class GuiController implements Initializable {
             System.err.println("Failed to load icon img: " + e.getMessage());
         }
 
-        try {
-            URL clearResource = getClass().getResource("/sound/clearRowSound.mp3");
-            URL speedResource = getClass().getResource("/sound/speedUpSound.mp3");
-            Media clearMedia = new Media(clearResource.toString());
-            Media speedMedia = new Media(speedResource.toString());
-            clearRowSoundPlayer = new MediaPlayer(clearMedia);
-            speedUpSoundPlayer = new MediaPlayer(speedMedia);
-        } catch (Exception e) {
-            System.err.println("Failed to load the sound file" + e.getMessage());
-        }
+        gameOverPanel.setMainMenu(() -> {
+            mainApp.showMainMenu();
+        });
 
 
         gamePanel.setFocusTraversable(true);
@@ -190,6 +184,13 @@ public class GuiController implements Initializable {
                 if (nextBrick[i][j] != 0) setRectangleData(nextBrick[i][j], nextBrickRectangles[i][j]);
             }
         }
+    }
+
+    public void setMainApp(Main mainApp) { this.mainApp = mainApp; }
+
+    public void setupVolumeControls(MediaPlayer clearRowSoundPlayer, MediaPlayer speedUpSoundPlayer) {
+        this.clearRowSoundPlayer = clearRowSoundPlayer;
+        this.speedUpSoundPlayer = speedUpSoundPlayer;
     }
 
     public void updateHighScore(int score) {
